@@ -1,6 +1,10 @@
-#include "server.cpp"
+#include "server.h"
 
-int main(){
+int main(int argc, char ** argv){
+
+    if ( argc != 2 ){
+        throw std::runtime_error("Too few arguments. Select port");
+    }
 
     std::cout << "Starting main" << std::endl;
 
@@ -32,9 +36,6 @@ int main(){
 
     std::cout << "Started TCP server" << std::endl;
     
-    //t.join();
-
-    tcp.stop(); 
-
     return 0;
+    
 }

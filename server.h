@@ -2,22 +2,28 @@
 #define SERVER_H
 
 #include "MySoket.h"
-#include "client.h"
 
-class Server{
+class Server
+{
 
     int port;
-    volatile bool serverActive = false;
+    static std::atomic<bool> serverActive;
     std::list<std::thread> clientThreads = {};
-    int listenfd = 0;
+    MySocket serverSocket;
     
-    static void handlingLoop( MySocket clientSocket );
+    static void hdl( int sig ); 
+    
+    static void handlingLoop( MySocket && clientSocket );
+
+    void registerSignals();
+    
+    void init();
 
 public:
 
-    Server(int _port);
+    explicit Server(int _port);
 
-    ~Server() = default;
+    ~Server();
 
     void freeResources();
 
@@ -33,6 +39,8 @@ public:
 
     bool isActive();
 
-};
+};  
+
+std::atomic<bool> Server::serverActive;
 
 #endif

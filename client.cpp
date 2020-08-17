@@ -27,12 +27,14 @@ public:
 
         if( inet_pton(AF_INET, servIP, &servAddr.sin_addr) <= 0 )
         {
-            throw std::runtime_error( std::string("Inet_pton error occured: ") + strerror(errno) );
+            throw std::runtime_error( std::string("Inet_pton error occured: ") + strerror(errno)  + 
+                                      std::string(": ") + std::to_string(__LINE__) );
         }
         
         if( connect(clientSocket.sockfd, (struct sockaddr *)&servAddr, sizeof(servAddr)) < 0 )
         {
-            throw std::runtime_error( std::string("Connect Failed: ") + strerror(errno) );
+            throw std::runtime_error( std::string("Connect Failed: ") + strerror(errno)  + 
+                                      std::string(": ") + std::to_string(__LINE__) );
         }
     }
  

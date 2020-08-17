@@ -1,17 +1,6 @@
-#include "interfaceSocketAndClient.h"
+#include "MySoket.h"
 
-struct MySocket : InterfaceSocketAndClient {
-        
-    int sockfd;
-
-    MySocket() = delete; 
-    
-    MySocket(int _sockfd)
-    :sockfd(_sockfd) { } 
-    
-    MySocket(const std::string & addr, uint16_t port) = delete;
-
-    MySocket(int port, bool flag)
+MySocket::MySocket(int port, bool flag)
     {
 
         int listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -23,16 +12,18 @@ struct MySocket : InterfaceSocketAndClient {
 
         if ( trueFlag < 0 )
         {
-            throw std::runtime_error( strerror(errno) ); 
+            throw std::runtime_error( strerror(errno) + 
+                                      std::string(": ") + std::to_string(__LINE__) ); 
         }
         
         if ( sockfd < 0 )
         {
-            throw std::runtime_error(std::string("Error on opening socket: ") + strerror(errno) ); 
+            throw std::runtime_error(std::string("Error on opening socket: ") + strerror(errno) + 
+                                      std::string(": ") + std::to_string(__LINE__) ); 
         }
     }
 
-    ~MySocket(){ 
+MySocket::~MySocket(){ 
         if (sockfd < 0) 
         {
             return;
@@ -43,19 +34,13 @@ struct MySocket : InterfaceSocketAndClient {
 
         }
 
-    MySocket(MySocket && other)
+MySocket::MySocket(MySocket && other)
     {
         sockfd = other.sockfd;
         other.sockfd = -1;
     };
 
-    MySocket(const MySocket&& other) = delete;
-
-    MySocket(MySocket & other) = delete; 
-    
-    MySocket(const MySocket & other) = delete;
-
-    int read( char * buff ) override {
+int MySocket::read( char * buff ) {
 
         memset(buff, 0, buff_size);
         
@@ -63,7 +48,8 @@ struct MySocket : InterfaceSocketAndClient {
 
         if (bytesReceived == -1)
         {
-            throw std::runtime_error(std::string("Error on read: ") + strerror(errno));
+            throw std::runtime_error( std::string("Error on read: ") + strerror(errno) + 
+                                      std::string(": ") + std::to_string(__LINE__) ); 
         }
                
         if ( bytesReceived == 0 || strncmp(buff, "quit\r\n", sizeof("quit\r\n")) == 0 || strncmp(buff, "\377\364\377\375\006", bytesReceived) == 0 )
@@ -74,22 +60,20 @@ struct MySocket : InterfaceSocketAndClient {
 
             if ( wr == -1 || wr == 0 )
             { 
-                throw std::runtime_error("Error on write"); 
+                throw std::runtime_error( std::string("Error on write: ") + std::to_string(__LINE__) );  
             }
             return 1;
         }
         return 2; 
     }
 
-    void send( char * buff, int n ) override {
+void MySocket::send( char * buff, int n ) {
 
         int wr = write(sockfd, buff, n+1);
 
         if ( wr == -1 || wr == 0 )
         { 
-            throw std::runtime_error("Error on write"); 
+            throw std::runtime_error(std::string("Error on write: ") + std::to_string(__LINE__) ); 
         }
 
     }
-
-};
