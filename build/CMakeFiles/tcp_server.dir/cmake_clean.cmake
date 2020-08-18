@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/tcp_server.dir/main.cpp.o"
   "CMakeFiles/tcp_server.dir/server.cpp.o"
   "CMakeFiles/tcp_server.dir/socket.cpp.o"
+  "CMakeFiles/tcp_server.dir/tcp_start.cpp.o"
   "tcp_server"
   "tcp_server.pdb"
 )

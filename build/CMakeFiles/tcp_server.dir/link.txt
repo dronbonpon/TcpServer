@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/tcp_server.dir/main.cpp.o CMakeFiles/tcp_server.dir/server.cpp.o CMakeFiles/tcp_server.dir/socket.cpp.o  -o tcp_server  -lpthread 
+/usr/bin/c++     CMakeFiles/tcp_server.dir/tcp_start.cpp.o CMakeFiles/tcp_server.dir/server.cpp.o CMakeFiles/tcp_server.dir/socket.cpp.o  -o tcp_server  -lpthread 

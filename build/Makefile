@@ -123,33 +123,6 @@ tcp_server/fast:
 	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/build
 .PHONY : tcp_server/fast
 
-main.o: main.cpp.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/main.cpp.s
-.PHONY : main.cpp.s
-
 server.o: server.cpp.o
 
 .PHONY : server.o
@@ -204,6 +177,33 @@ socket.cpp.s:
 	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/socket.cpp.s
 .PHONY : socket.cpp.s
 
+tcp_start.o: tcp_start.cpp.o
+
+.PHONY : tcp_start.o
+
+# target to build an object file
+tcp_start.cpp.o:
+	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/tcp_start.cpp.o
+.PHONY : tcp_start.cpp.o
+
+tcp_start.i: tcp_start.cpp.i
+
+.PHONY : tcp_start.i
+
+# target to preprocess a source file
+tcp_start.cpp.i:
+	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/tcp_start.cpp.i
+.PHONY : tcp_start.cpp.i
+
+tcp_start.s: tcp_start.cpp.s
+
+.PHONY : tcp_start.s
+
+# target to generate assembly for a file
+tcp_start.cpp.s:
+	$(MAKE) -f CMakeFiles/tcp_server.dir/build.make CMakeFiles/tcp_server.dir/tcp_start.cpp.s
+.PHONY : tcp_start.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -213,15 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... tcp_server"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... server.o"
 	@echo "... server.i"
 	@echo "... server.s"
 	@echo "... socket.o"
 	@echo "... socket.i"
 	@echo "... socket.s"
+	@echo "... tcp_start.o"
+	@echo "... tcp_start.i"
+	@echo "... tcp_start.s"
 .PHONY : help
 
 

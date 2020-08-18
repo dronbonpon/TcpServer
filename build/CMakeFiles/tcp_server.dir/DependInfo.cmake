@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/d/tcp/main.cpp" "/mnt/d/tcp/build/CMakeFiles/tcp_server.dir/main.cpp.o"
   "/mnt/d/tcp/server.cpp" "/mnt/d/tcp/build/CMakeFiles/tcp_server.dir/server.cpp.o"
   "/mnt/d/tcp/socket.cpp" "/mnt/d/tcp/build/CMakeFiles/tcp_server.dir/socket.cpp.o"
+  "/mnt/d/tcp/tcp_start.cpp" "/mnt/d/tcp/build/CMakeFiles/tcp_server.dir/tcp_start.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

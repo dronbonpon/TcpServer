@@ -57,18 +57,18 @@ include CMakeFiles/tcp_server.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/tcp_server.dir/flags.make
 
-CMakeFiles/tcp_server.dir/main.cpp.o: CMakeFiles/tcp_server.dir/flags.make
-CMakeFiles/tcp_server.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/tcp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tcp_server.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tcp_server.dir/main.cpp.o -c /mnt/d/tcp/main.cpp
+CMakeFiles/tcp_server.dir/tcp_start.cpp.o: CMakeFiles/tcp_server.dir/flags.make
+CMakeFiles/tcp_server.dir/tcp_start.cpp.o: ../tcp_start.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/tcp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tcp_server.dir/tcp_start.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tcp_server.dir/tcp_start.cpp.o -c /mnt/d/tcp/tcp_start.cpp
 
-CMakeFiles/tcp_server.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tcp_server.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/tcp/main.cpp > CMakeFiles/tcp_server.dir/main.cpp.i
+CMakeFiles/tcp_server.dir/tcp_start.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tcp_server.dir/tcp_start.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/tcp/tcp_start.cpp > CMakeFiles/tcp_server.dir/tcp_start.cpp.i
 
-CMakeFiles/tcp_server.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tcp_server.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/tcp/main.cpp -o CMakeFiles/tcp_server.dir/main.cpp.s
+CMakeFiles/tcp_server.dir/tcp_start.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tcp_server.dir/tcp_start.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/tcp/tcp_start.cpp -o CMakeFiles/tcp_server.dir/tcp_start.cpp.s
 
 CMakeFiles/tcp_server.dir/server.cpp.o: CMakeFiles/tcp_server.dir/flags.make
 CMakeFiles/tcp_server.dir/server.cpp.o: ../server.cpp
@@ -98,14 +98,14 @@ CMakeFiles/tcp_server.dir/socket.cpp.s: cmake_force
 
 # Object files for target tcp_server
 tcp_server_OBJECTS = \
-"CMakeFiles/tcp_server.dir/main.cpp.o" \
+"CMakeFiles/tcp_server.dir/tcp_start.cpp.o" \
 "CMakeFiles/tcp_server.dir/server.cpp.o" \
 "CMakeFiles/tcp_server.dir/socket.cpp.o"
 
 # External object files for target tcp_server
 tcp_server_EXTERNAL_OBJECTS =
 
-tcp_server: CMakeFiles/tcp_server.dir/main.cpp.o
+tcp_server: CMakeFiles/tcp_server.dir/tcp_start.cpp.o
 tcp_server: CMakeFiles/tcp_server.dir/server.cpp.o
 tcp_server: CMakeFiles/tcp_server.dir/socket.cpp.o
 tcp_server: CMakeFiles/tcp_server.dir/build.make

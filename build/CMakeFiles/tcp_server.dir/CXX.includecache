@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/mnt/d/tcp/MySoket.h
-interfaceSocketAndClient.h
-/mnt/d/tcp/interfaceSocketAndClient.h
-
 /mnt/d/tcp/interfaceSocketAndClient.h
 sys/socket.h
 -
@@ -62,15 +58,15 @@ exception
 stdexcept
 -
 
-/mnt/d/tcp/main.cpp
-server.h
-/mnt/d/tcp/server.h
-
 /mnt/d/tcp/server.cpp
 server.h
 /mnt/d/tcp/server.h
 
 /mnt/d/tcp/server.h
-MySoket.h
-/mnt/d/tcp/MySoket.h
+socket.h
+/mnt/d/tcp/socket.h
+
+/mnt/d/tcp/socket.h
+interfaceSocketAndClient.h
+/mnt/d/tcp/interfaceSocketAndClient.h
 
