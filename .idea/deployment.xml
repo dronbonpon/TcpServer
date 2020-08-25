@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData">
+    <serverData>
+      <paths name="home.deepshit.su (f27455b5-e951-4ca2-abf0-4e9d782ce5b3)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.EqYiQ5u8gD" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

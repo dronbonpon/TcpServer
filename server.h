@@ -1,22 +1,27 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "MySoket.h"
+#include "socket.h"
+#include "thread_RAII.h"
 
 class Server
 {
 
     int port;
     static std::atomic<bool> serverActive;
-    std::list<std::thread> clientThreads = {};
+    std::list<ThreadRAII> clientThreads = {};
     MySocket serverSocket;
     
+#ifndef _WIN32
     static void hdl( int sig ); 
-    
-    static void handlingLoop( MySocket && clientSocket );
 
     void registerSignals();
-    
+#else
+    static void socketStart(WSADATA& wData);
+#endif // _WIN32
+  
+    static void handlingLoop( MySocket && clientSocket );
+ 
     void init();
 
 public:
@@ -25,22 +30,13 @@ public:
 
     ~Server();
 
-    void freeResources();
-
     void start();
 
-    void stop();
+    const int getPort() const;
 
-    int getPort();
-
-    void setPort(int _port);
-
-    void restart();
-
-    bool isActive();
+    bool isActive() const;
 
 };  
 
-std::atomic<bool> Server::serverActive;
 
 #endif

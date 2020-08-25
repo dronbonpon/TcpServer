@@ -1,0 +1,13 @@
+# ninja log v5
+10	1742	620055410	CMakeFiles/tcp_server.dir/tcp_start.cpp.obj	796a7c4640866ab0
+3	1507	620060119	CMakeFiles/tcp_server.dir/server.cpp.obj	37fb3732ee69eab6
+1507	2028	620060119	tcp_server.exe	6c6d6e828477c47d
+4	1749	620055410	CMakeFiles/tcp_server.dir/socket.cpp.obj	eec919806d7949f9
+0	89	619987774	build.ninja	df05d37c910f71cc
+3	1121	620060218	CMakeFiles/tcp_server.dir/socket.cpp.obj	eec919806d7949f9
+1121	1300	620060219	tcp_server.exe	6c6d6e828477c47d
+3	1530	620061161	CMakeFiles/tcp_server.dir/server.cpp.obj	37fb3732ee69eab6
+1530	1723	620061161	tcp_server.exe	6c6d6e828477c47d
+3	1829	620075468	CMakeFiles/tcp_server.dir/tcp_start.cpp.obj	796a7c4640866ab0
+6	1881	620075468	CMakeFiles/tcp_server.dir/server.cpp.obj	37fb3732ee69eab6
+1881	2382	620075469	tcp_server.exe	6c6d6e828477c47d
