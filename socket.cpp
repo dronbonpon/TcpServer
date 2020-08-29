@@ -132,6 +132,7 @@ int MySocket::read( char * buff ) {
     if ( bytesReceived == 0 || strncmp(buff, "quit\r\n", sizeof("quit\r\n")) == 0 ){
         return 1;
     }
+
     return 2;
 
     #else
@@ -159,6 +160,15 @@ void _send(SOCKET sockfd, char* buff, int bytesSend) {
             + std::string(__FILE__) + ":" + std::to_string(__LINE__));
     }
 }
+
+void _send(SOCKET sockfd, const char* buff, int bytesSend) {
+    int wr = send(sockfd, buff, bytesSend + 1, 0);
+    if (wr == SOCKET_ERROR || (wr == 0 && bytesSend != 0)) {
+        throw std::runtime_error("Error on write: " + errorMessage(WSAGetLastError()) + "\n"
+            + std::string(__FILE__) + ":" + std::to_string(__LINE__));
+    }
+}
+
 #endif
 
 
@@ -177,5 +187,21 @@ void MySocket::send( char * buff, int bytesSend ) {
         throw std::runtime_error("Error on write\n" + std::string(__FILE__) + ":" + std::to_string(__LINE__) ); 
     }
     #endif
+}
+void MySocket::send(const char* buff, int bytesSend) {
+
+    if (bytesSend < 0) {
+        throw std::runtime_error("Invalid argument in send. bytesSend must be positive\n" + std::string(__FILE__) + ":" + std::to_string(__LINE__));
+    }
+#ifdef _WIN32
+    _send(sockfd, buff, bytesSend);
+#else
+    int wr = write(sockfd, buff, bytesSend + 1);
+
+    if (wr == -1 || (wr == 0 && bytesSend != 0))
+    {
+        throw std::runtime_error("Error on write\n" + std::string(__FILE__) + ":" + std::to_string(__LINE__));
+    }
+#endif
 }
 

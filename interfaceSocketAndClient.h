@@ -1,19 +1,17 @@
 #ifndef INTERFACESOCKETANDCLIENT_H
 #define INTERFACESOCKETANDCLIENT_H
 
+#pragma once
+
 #include <atomic>
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
 #include <list>
 #include <thread>
-//#include <mutex>
-//#include <vector>
 #ifdef _WIN32 // Windows NT
 
-#include <WinSock2.h>
-#include <Windows.h>
-#include <Ws2tcpip.h>
+#include <winsock2.h>
 
 #else
 #include <sys/socket.h>
@@ -24,15 +22,11 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
-#include <sys/types.h>
-#include <time.h> 
 #include <signal.h>
 
 #endif
 
 static const size_t buff_size = 4096;
-
-static std::string errorMessage(int errorID);
 
 struct InterfaceSocketAndClient{
 

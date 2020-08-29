@@ -1,13 +1,14 @@
 #include "server.h"
 
 #ifdef _WIN32
+
 std::string errorMessage(int errorID) {
     char msgbuf[256];
     msgbuf[0] = '\0';
-    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,   // flags
+    FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,   // flags
         NULL,                // lpsource
         errorID,                 // message id
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),    // languageid
+        MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),    // languageid
         msgbuf,              // output buffer
         sizeof(msgbuf),     // size of msgbuf, bytes
         NULL);               // va_list of arguments
@@ -15,13 +16,15 @@ std::string errorMessage(int errorID) {
     if (!*msgbuf) {
         sprintf(msgbuf, "%d", errorID);
     }
-
-    return msgbuf;
+    return std::string(msgbuf);
 }
+
+
 #endif
 std::atomic<bool> Server::serverActive;
 
 #ifndef _WIN32
+
 void Server::hdl( int sig ) { 
     std::cout << "\nServer stopped\n" << std::endl;
     serverActive.store(false); 
@@ -31,15 +34,13 @@ void Server::hdl( int sig ) {
 void Server::registerSignals(){
     signal(SIGINT, hdl);
 }
-#else
-void Server::socketStart(WSADATA& wData) {
 
-    if (WSAStartup(MAKEWORD(2, 2), &wData)) {
-        throw std::runtime_error("Error on WSAStartup: " + errorMessage(WSAGetLastError()) + "\n" +
-            std::string(__FILE__) + ":" + std::to_string(__LINE__));
-    }
-}
 #endif
+
+void Server::handlingLoopWrapper(MySocket&& clientSocket, Server* self) {
+    self->handlingLoop( std::move(clientSocket) );
+}
+
 
 void Server::handlingLoop( MySocket && clientSocket ){
                    
@@ -49,21 +50,21 @@ void Server::handlingLoop( MySocket && clientSocket ){
 
         int quit = clientSocket.read(buff);
 
+        size_t n = strlen(buff);
+
         if ( quit == 1 ) { return; }
 
-        int i, j;
-        size_t n = strlen(buff);
+        int i, j;   
 
         for (i = 0; i < n; i++) { for (j = i+1; j < n; j++) { if (buff[i] > buff[j]) { std::swap(buff[i], buff[j]); } } }
             
         buff[n] = '\n';
 
         clientSocket.send(buff, n);
-            
-    }      
-}
 
-
+    }       
+}      
+  
 
 void Server::init()
 {
@@ -92,7 +93,6 @@ void Server::init()
     int _bind = bind(serverSocket.sockfd, (struct sockaddr*)&servAddr, sizeof(servAddr));
 
     if ( _bind == SOCKET_ERROR ){
-        std::cout << WSAGetLastError() <<  std::endl;
         throw std::runtime_error( "Error on bind: " + errorMessage(WSAGetLastError()) + "\n" +
                                    std::string(__FILE__) + ":" + std::to_string(__LINE__) );
     }
@@ -121,7 +121,7 @@ Server::Server(int _port)
     :port(_port), serverSocket()
 {
 #ifndef _WIN32
-    registerSignals();
+    registerSignals();  
 #endif
     init();
 }
@@ -169,13 +169,9 @@ void Server::start(){
         #endif
 
         MySocket clientSocket( clientSocketAddr );
-        ThreadRAII clientThread(std::thread(handlingLoop, std::move(clientSocket)), ThreadRAII::DtorAction::join);
+        ThreadRAII clientThread(std::thread(handlingLoopWrapper, std::move(clientSocket), this), ThreadRAII::DtorAction::join);
         //std::thread clientThread( handlingLoop, std::move(clientSocket) );
         clientThreads.emplace_back( std::move(clientThread) );
-        #ifdef _WIN32
-        //WSACleanup(); ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        #endif // _WIN32
-
     }
 
     std::cout << "TCP server stopped" << std::endl;

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "interfaceSocketAndClient.h"
 
 class ThreadRAII{

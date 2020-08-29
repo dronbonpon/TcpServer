@@ -5,17 +5,19 @@
 
 struct MySocket : InterfaceSocketAndClient
 {
-    #ifdef _WIN32 // Windows NT
+#ifdef _WIN32 // Windows NT
+
     SOCKET sockfd = INVALID_SOCKET;
    
     explicit MySocket(SOCKET _sockfd);
 
-    #else
+#else
+
     int sockfd;
 
     explicit MySocket(int _sockfd);
 
-    #endif
+#endif
 
     MySocket();
 
@@ -32,6 +34,8 @@ struct MySocket : InterfaceSocketAndClient
     int read( char * buff ) override;
 
     void send( char * buff, int n ) override;
+
+    void send(const char* buff, int n);
 
 };
 

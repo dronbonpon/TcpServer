@@ -1,8 +1,14 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#pragma once
+
 #include "socket.h"
 #include "thread_RAII.h"
+
+#ifdef _WIN32
+std::string errorMessage(int errorID);
+#endif // _WIN32
 
 class Server
 {
@@ -16,11 +22,12 @@ class Server
     static void hdl( int sig ); 
 
     void registerSignals();
-#else
-    static void socketStart(WSADATA& wData);
+
 #endif // _WIN32
   
-    static void handlingLoop( MySocket && clientSocket );
+    static void handlingLoopWrapper( MySocket && clientSocket, Server * self );
+
+    void handlingLoop(MySocket&& clientSocket);
  
     void init();
 
@@ -35,6 +42,7 @@ public:
     const int getPort() const;
 
     bool isActive() const;
+
 
 };  
 
