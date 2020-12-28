@@ -1,35 +1,35 @@
-#ifndef MYSOCKET_H
-#define MYSOCKET_H
+#ifndef socketRAII_H
+#define socketRAII_H
 
 #include "interfaceSocketAndClient.h"
 
-struct MySocket : InterfaceSocketAndClient
+struct socketRAII : InterfaceSocketAndClient
 {
 #ifdef _WIN32 // Windows NT
 
     SOCKET sockfd = INVALID_SOCKET;
    
-    explicit MySocket(SOCKET _sockfd);
+    explicit socketRAII(SOCKET _sockfd);
 
 #else
 
     int sockfd;
 
-    explicit MySocket(int _sockfd);
+    explicit socketRAII(int _sockfd);
 
 #endif
 
-    MySocket();
+    socketRAII();
 
-    ~MySocket();
+    ~socketRAII();
     
-    MySocket(MySocket && other);
+    socketRAII(socketRAII && other);
 
-    MySocket(const MySocket&& other) = delete;
+    socketRAII(const socketRAII&& other) = delete;
 
-    MySocket(MySocket & other) = delete; 
+    socketRAII(socketRAII & other) = delete; 
     
-    MySocket(const MySocket & other) = delete;
+    socketRAII(const socketRAII & other) = delete;
 
     int read( char * buff ) override;
 

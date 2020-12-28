@@ -16,7 +16,7 @@ class Server
     int port;
     static std::atomic<bool> serverActive;
     std::list<ThreadRAII> clientThreads = {};
-    MySocket serverSocket;
+    socketRAII serverSocket;
     
 #ifndef _WIN32
     static void hdl( int sig ); 
@@ -25,9 +25,9 @@ class Server
 
 #endif // _WIN32
   
-    static void handlingLoopWrapper( MySocket && clientSocket, Server * self );
+    static void handlingLoopWrapper( socketRAII && clientSocket, Server * self );
 
-    void handlingLoop(MySocket&& clientSocket);
+    void handlingLoop(socketRAII&& clientSocket);
  
     void init();
 

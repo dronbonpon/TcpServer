@@ -37,12 +37,12 @@ void Server::registerSignals(){
 
 #endif
 
-void Server::handlingLoopWrapper(MySocket&& clientSocket, Server* self) {
+void Server::handlingLoopWrapper(socketRAII&& clientSocket, Server* self) {
     self->handlingLoop( std::move(clientSocket) );
 }
 
 
-void Server::handlingLoop( MySocket && clientSocket ){
+void Server::handlingLoop( socketRAII && clientSocket ){
                    
     while ( true ) {
             
@@ -168,7 +168,7 @@ void Server::start(){
 
         #endif
 
-        MySocket clientSocket( clientSocketAddr );
+        socketRAII clientSocket( clientSocketAddr );
         ThreadRAII clientThread(std::thread(handlingLoopWrapper, std::move(clientSocket), this), ThreadRAII::DtorAction::join);
         //std::thread clientThread( handlingLoop, std::move(clientSocket) );
         clientThreads.emplace_back( std::move(clientThread) );

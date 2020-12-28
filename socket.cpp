@@ -18,7 +18,7 @@ std::string errorMessage(int errorID) {
     return msgbuf;
 }
 #endif
-MySocket::MySocket(){
+socketRAII::socketRAII(){
 
     #ifdef _WIN32 // Windows NTf
     
@@ -65,7 +65,7 @@ MySocket::MySocket(){
 
 #ifdef _WIN32
 
-MySocket::MySocket(SOCKET _sockfd)
+socketRAII::socketRAII(SOCKET _sockfd)
 :sockfd(_sockfd){
     BOOL bOptVal = FALSE;
     int bOptLen = sizeof(BOOL);
@@ -77,7 +77,7 @@ MySocket::MySocket(SOCKET _sockfd)
 
 #else
 
-MySocket::MySocket(int _sockfd)
+socketRAII::socketRAII(int _sockfd)
 :sockfd(_sockfd)
 {
     const int trueFlag = 1;
@@ -91,7 +91,7 @@ MySocket::MySocket(int _sockfd)
 
 #endif
 
-MySocket::~MySocket(){
+socketRAII::~socketRAII(){
     #ifdef _WIN32
     if ( sockfd == INVALID_SOCKET ){
         return;
@@ -108,7 +108,7 @@ MySocket::~MySocket(){
     #endif
 }
 
-MySocket::MySocket(MySocket && other) {
+socketRAII::socketRAII(socketRAII && other) {
     sockfd = other.sockfd;
     #ifdef _WIN32
     other.sockfd = INVALID_SOCKET;
@@ -117,7 +117,7 @@ MySocket::MySocket(MySocket && other) {
     #endif
 };
 
-int MySocket::read( char * buff ) {
+int socketRAII::read( char * buff ) {
 
     memset(buff, 0, buff_size);
     int bytesReceived = recv(sockfd, buff, buff_size, 0);
@@ -172,7 +172,7 @@ void _send(SOCKET sockfd, const char* buff, int bytesSend) {
 #endif
 
 
-void MySocket::send( char * buff, int bytesSend ) {
+void socketRAII::send( char * buff, int bytesSend ) {
 
     if ( bytesSend < 0 ){
         throw std::runtime_error("Invalid argument in send. bytesSend must be positive\n" + std::string(__FILE__) + ":" + std::to_string(__LINE__) );
@@ -188,7 +188,7 @@ void MySocket::send( char * buff, int bytesSend ) {
     }
     #endif
 }
-void MySocket::send(const char* buff, int bytesSend) {
+void socketRAII::send(const char* buff, int bytesSend) {
 
     if (bytesSend < 0) {
         throw std::runtime_error("Invalid argument in send. bytesSend must be positive\n" + std::string(__FILE__) + ":" + std::to_string(__LINE__));

@@ -10,7 +10,7 @@ private:
 
     const char * servIP;
     int port;
-    MySocket clientSocket;
+    socketRAII clientSocket;
     
 public:
 
