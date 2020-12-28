@@ -50,17 +50,17 @@ void Server::handlingLoop( socketRAII && clientSocket ){
 
         int quit = clientSocket.read(buff);
 
-        size_t n = strlen(buff);
-
         if ( quit == 1 ) { return; }
 
         int i, j;   
 
-        for (i = 0; i < n; i++) { for (j = i+1; j < n; j++) { if (buff[i] > buff[j]) { std::swap(buff[i], buff[j]); } } }
-            
-        buff[n] = '\n';
+        std::string answer = handler(std::string(buff));
+        
+        size_t n = answer.length();
 
-        clientSocket.send(buff, n);
+        answer += '\n';
+
+        clientSocket.send(answer.c_str(), n);
 
     }       
 }      
@@ -117,8 +117,8 @@ void Server::init()
     #endif
 }
 
-Server::Server(int _port)
-    :port(_port), serverSocket()
+Server::Server(int _port, std::function<std::string(const std::string)> handler_)
+    :port(_port), handler(handler_), serverSocket()
 {
 #ifndef _WIN32
     registerSignals();  
@@ -170,7 +170,6 @@ void Server::start(){
 
         socketRAII clientSocket( clientSocketAddr );
         ThreadRAII clientThread(std::thread(handlingLoopWrapper, std::move(clientSocket), this), ThreadRAII::DtorAction::join);
-        //std::thread clientThread( handlingLoop, std::move(clientSocket) );
         clientThreads.emplace_back( std::move(clientThread) );
     }
 

@@ -5,6 +5,7 @@
 
 #include "socket.h"
 #include "thread_RAII.h"
+#include <functional>
 
 #ifdef _WIN32
 std::string errorMessage(int errorID);
@@ -17,6 +18,7 @@ class Server
     static std::atomic<bool> serverActive;
     std::list<ThreadRAII> clientThreads = {};
     socketRAII serverSocket;
+    std::function<std::string(const std::string)> handler;
     
 #ifndef _WIN32
     static void hdl( int sig ); 
@@ -33,7 +35,8 @@ class Server
 
 public:
 
-    explicit Server(int _port);
+    Server(int _port, std::function<std::string(const std::string)> handler_ = 
+                            []( const std::string& request ){ return request; } );
 
     ~Server();
 
