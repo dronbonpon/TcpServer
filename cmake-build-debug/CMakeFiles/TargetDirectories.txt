@@ -1,3 +1,0 @@
-/tmp/tmp.EqYiQ5u8gD/cmake-build-debug/CMakeFiles/edit_cache.dir
-/tmp/tmp.EqYiQ5u8gD/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/tmp/tmp.EqYiQ5u8gD/cmake-build-debug/CMakeFiles/tcp_server.dir
